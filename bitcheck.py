@@ -2,9 +2,8 @@
 Bitcheck (Coinbase / MercadoBitcoin)
 
 Check potential profitability by buying BTC from Coinbase and then selling
-it at MercadoBitcoin. Calculate the total arbitrage gains making the 
-assumption that the bitcoins will be bought and sold whithin the shortest 
-timeframe possible.
+it at MercadoBitcoin. Profit is calculated by making the assumption that bitcoin
+will be bought and sold whithin the shortest time frame possible.
 
 Usage:
     bitcheck.py [--investment=I]

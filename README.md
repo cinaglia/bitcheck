@@ -2,22 +2,45 @@
 
 Calculate potential profitability by simulating [Bitcoin](http://www.bitcoin.org) transactions such as `USD` → `BTC` → `BRL` → `USD`. The script currently uses [Coinbase](https://www.coinbase.com)'s JSON API to fetch ```USD/BTC``` and [MercadoBitcoin](https://www.mercadobitcoin.com)'s to fetch ```BTC/BRL```.
 
-Total gains are calculated by making the assumption that bitcoin will be bought and sold whithin the shortest time frame possible.
+Profit calculated by making the assumption that bitcoin will be bought and sold whithin the shortest time frame possible.
 
 
-##### Usage
-```
-python bitcheck.py [--investment=I]
-            [--coinbase=C]
-            [--mercadobitcoin=M]
-            [--exchange=E]
-            [--verbose]
-            [--cycle]
-python bitcheck.py (-h | --help)
-python bitcheck.py (-v | --version)
+Installation
+-------
+To install `bitcheck` follow the steps below. If you do not have `virtualenvwrapper`,
+feel free to skip the environment creation step.
+```bash
+git clone https://github.com/cinaglia/bitcheck.git
+cd bitcheck && mkvirtualenv bitcheck
+pip install -r requirements.txt
 ```
 
-##### Sample output
+Usage
+-------
+```
+Usage:
+    python bitcheck.py [--investment=I]
+                       [--coinbase=C]
+                       [--mercadobitcoin=M]
+                       [--exchange=E]
+                       [--verbose]
+                       [--cycle]
+    python bitcheck.py (-h | --help)
+    python bitcheck.py (-v | --version)
+
+Options:
+    -h --help           Show this screen.
+    -v --version        Show version.
+    --verbose           Print additional data about process.
+    --cycle             Calculate full cycle. Transfer BRL back to USD.
+    --investment=I      Total USD invested [default: 1000].
+    --coinbase=C        Price paid at Coinbase.
+    --mercadobitcoin=M  Price sold at MercadoBitcoin.
+    --exchange=E        Exchange Rate.
+```
+
+Sample output
+-------
 ```
 $ python bitcheck.py --verbose
 Retrieving exchange // check_mercado_bitcoin ..  took 1.81531 seconds
@@ -50,17 +73,17 @@ Retrieving exchange // check_exchange ..  took 2.522646 seconds
 
 ```
 
-##### Dependencies
----
+Dependencies
+-------
 This script uses the awesome lib `docopt` to handle argument parsing and `requests`
-for HTTP requests.
+for HTTP requests. Optionally use `virtualenvwrapper` to handle dependencies.
 
-##### Roadmap
----
+Roadmap
+-------
 * Add setuptools support.
-* Update app so that it can be easily extended to be used with multiple currencies and exchanges.
+* Add support for multiple currencies and exchanges.
 
 
-##### (Un)license
+(Un)license
 -------
 [Public domain](LICENSE)
