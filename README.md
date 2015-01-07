@@ -1,8 +1,8 @@
 # Bitcheck
 
-Calculate potential profitability by simulating [Bitcoin](http://www.bitcoin.org) transactions such as `USD` → `BTC` → `BRL` → `USD`. The script currently uses [Coinbase](https://www.coinbase.com)'s JSON API to fetch ```USD/BTC``` and [MercadoBitcoin](https://www.mercadobitcoin.com)'s to fetch ```BTC/BRL```.
+Calculate potential profitability by simulating [Bitcoin](http://www.bitcoin.org) transactions such as `USD` → `BTC` → `BRL` → `USD`. The script currently uses [Coinbase](https://www.coinbase.com)'s JSON API to fetch ```USD/BTC``` and [MercadoBitcoin](https://www.mercadobitcoin.com.br)'s to fetch ```BTC/BRL```.
 
-Profit calculated by making the assumption that bitcoin will be bought and sold whithin the shortest time frame possible.
+Profit is calculated by making the assumption that bitcoin will be bought and sold whithin the shortest time frame possible.
 
 
 Installation
