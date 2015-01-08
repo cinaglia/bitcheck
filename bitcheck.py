@@ -59,7 +59,7 @@ class Bitcheck(object):
         HTTP requests to gather information.
 
         Once all exchange rates are fetched, it will then crunch some numbers
-        to find out how much can be made (or lost) by buying BTC in the US and 
+        to find out how much can be made (or lost) by buying BTC in the US and
         selling it in a different market.
         """
         # Fetch exchange rates
@@ -132,28 +132,28 @@ class Bitcheck(object):
         data['btc'] = (data['investment'] - data['coinbase_fee']) / coinbase
         data['coinbase_total'] = data['investment'] - data['coinbase_fee']
 
-        # Calculate total amount of BRL based on MercadoBitcoin's prices 
+        # Calculate total amount of BRL based on MercadoBitcoin's prices
         # excluding applicable fees.
         data['brl'] = data['btc'] * mercado_bitcoin
         data['brl_excluding_fee'] = (data['brl'] * (1 - self.MERCADO_BITCOIN_FEE)) - \
-                                     self.MERCADO_BITCOIN_BANK_FEE
+            self.MERCADO_BITCOIN_BANK_FEE
         data['mercado_bitcoin_fee'] = data['brl'] - data['brl_excluding_fee']
 
         # Calculate gains
         data['brl_gain'] = data['brl_excluding_fee'] - (data['investment'] * exchange)
         data['percentage'] = (float(data['brl_gain']) / data['brl_excluding_fee']) * 100
-        
+
         # If full cycle is enabled, calculate how much USD we can buy via bank.
         if self.args.get('--cycle'):
             data['iof_fee'] = data['brl_excluding_fee'] * self.IOF
             data['usd'] = ((data['brl_excluding_fee'] - data['iof_fee']) / exchange) - \
-                           data['investment']
+                data['investment']
 
         return data
 
     def output(self, data):
         """
-        Display findings to the screen. Uses placeholders found in 
+        Display findings to the screen. Uses placeholders found in
         ``bitcheck.placeholders``.
         """
         print default.format(**data)

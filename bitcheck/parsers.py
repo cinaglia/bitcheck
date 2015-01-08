@@ -1,6 +1,7 @@
 import re
 import json
 
+
 class Parser(object):
     def parse_json(self, data):
         return json.loads(data)

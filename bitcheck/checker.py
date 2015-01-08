@@ -1,5 +1,6 @@
 import requests
 
+
 class Checker(object):
     def __init__(self, url, parser):
         self.url = url
