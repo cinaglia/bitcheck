@@ -13,20 +13,21 @@ feel free to skip the environment creation step.
 git clone https://github.com/cinaglia/bitcheck.git
 cd bitcheck && mkvirtualenv bitcheck
 pip install -r requirements.txt
+python setup.py install
 ```
 
 Usage
 -------
 ```
 Usage:
-    python bitcheck.py [--investment=I]
+    bitcheck [--investment=I]
                        [--coinbase=C]
                        [--mercadobitcoin=M]
                        [--exchange=E]
                        [--verbose]
                        [--cycle]
-    python bitcheck.py (-h | --help)
-    python bitcheck.py (-v | --version)
+    bitcheck (-h | --help)
+    bitcheck (-v | --version)
 
 Options:
     -h --help           Show this screen.
@@ -42,7 +43,7 @@ Options:
 Sample output
 -------
 ```
-$ python bitcheck.py --verbose
+$ bitcheck --verbose
 Retrieving exchange // check_mercado_bitcoin ..  took 1.81531 seconds
 Retrieving exchange // check_coinbase ..  took 1.266546 seconds
 Retrieving exchange // check_exchange ..  took 2.522646 seconds
@@ -81,8 +82,8 @@ for HTTP requests. Optionally use `virtualenvwrapper` to handle dependencies.
 Roadmap
 -------
 * Add support for parallel HTTP requests.
-* Add setuptools support.
 * Add support for multiple currencies and exchanges.
+* `implemented` Add setuptools support.
 
 
 (Un)license

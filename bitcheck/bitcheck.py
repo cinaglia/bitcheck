@@ -1,43 +1,13 @@
-"""
-Bitcheck (Coinbase / MercadoBitcoin)
-
-Check potential profitability by buying BTC from Coinbase and then selling
-it at MercadoBitcoin. Profit is calculated by making the assumption that bitcoin
-will be bought and sold whithin the shortest time frame possible.
-
-Usage:
-    bitcheck.py [--investment=I]
-                [--coinbase=C]
-                [--mercadobitcoin=M]
-                [--exchange=E]
-                [--verbose]
-                [--cycle]
-    bitcheck.py (-h | --help)
-    bitcheck.py (-v | --version)
-
-Options:
-    -h --help           Show this screen.
-    -v --version        Show version.
-    --verbose           Print additional data about process.
-    --cycle             Calculate full cycle. Transfer BRL back to USD.
-    --investment=I      Total USD invested [default: 1000].
-    --coinbase=C        Price paid at Coinbase.
-    --mercadobitcoin=M  Price sold at MercadoBitcoin.
-    --exchange=E        Exchange Rate.
-
-"""
-
 import re
 import sys
 import argparse
 import requests
 
-from docopt import docopt
 from datetime import date, timedelta
-from bitcheck.parsers import ParserMercadoBitcoin, ParserCoinbase, ParserExchange
-from bitcheck.checker import Checker
-from bitcheck.placeholders import default, cycle
-from bitcheck.utils import measure
+from .parsers import ParserMercadoBitcoin, ParserCoinbase, ParserExchange
+from .checker import Checker
+from .placeholders import default, cycle
+from .utils import measure
 
 
 class Bitcheck(object):
@@ -163,10 +133,3 @@ class Bitcheck(object):
 
         # Print empty line
         print
-
-
-if __name__ == "__main__":
-    args = docopt(__doc__, version='Bitcheck 1.0')
-    check = Bitcheck(args)
-    check.run()
-    
