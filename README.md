@@ -80,6 +80,7 @@ for HTTP requests. Optionally use `virtualenvwrapper` to handle dependencies.
 
 Roadmap
 -------
+* Add support for parallel HTTP requests.
 * Add setuptools support.
 * Add support for multiple currencies and exchanges.
 
