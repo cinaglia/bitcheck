@@ -159,7 +159,7 @@ class Bitcheck(object):
         print default.format(**data)
 
         if self.args.get('--cycle'):
-            print cycle.format(**data).strip()
+            print cycle.format(**data).lstrip('\n')
 
         # Print empty line
         print
