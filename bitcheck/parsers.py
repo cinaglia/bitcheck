@@ -24,6 +24,7 @@ class ParserCoinbase(Parser):
         j = self.parse_json(data)
         return float(j['subtotal']['amount'])
 
+
 class ParserExchange(Parser):
     """Parses the exchange rate by extracting it from an HTML response."""
     def parse(self, data):

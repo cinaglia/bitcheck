@@ -11,7 +11,7 @@ def measure(func):
 
         # Calculate time and output
         start = datetime.datetime.now()
-        print "Retrieving exchange // {} ..".format(func.__name__),
+        print "Retrieving exchange rates ..".format(func.__name__),
         output = func(self, *args, **kwargs)
         diff = (datetime.datetime.now() - start).total_seconds()
         print " took {} seconds".format(diff)

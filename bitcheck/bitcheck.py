@@ -1,11 +1,9 @@
 import re
 import sys
 import argparse
-import requests
 
-from datetime import date, timedelta
+from .async import get
 from .parsers import ParserMercadoBitcoin, ParserCoinbase, ParserExchange
-from .checker import Checker
 from .placeholders import default, cycle
 from .utils import measure
 
@@ -32,57 +30,44 @@ class Bitcheck(object):
         to find out how much can be made (or lost) by buying BTC in the US and
         selling it in a different market.
         """
-        # Fetch exchange rates
-        mercado_bitcoin = self.check_mercado_bitcoin()
-        coinbase = self.check_coinbase()
-        exchange = self.check_exchange()
-        # Calculate arbitrage based on values obtained
-        data = self.calculate(coinbase, mercado_bitcoin, exchange)
+        data = self.perform_async_requests()
         self.output(data)
 
     @measure
-    def check_mercado_bitcoin(self):
+    def perform_async_requests(self):
         """
-        Fetch and parse exchange rate from MercadoBitcoin.
+        Perform all requests asynchronously.
         """
-        # Return early if price is provided via args
-        if self.args.get('--mercadobitcoin'):
-            return float(self.args.get('--mercadobitcoin'))
+        # Build list of URL and parsers for each exchange
+        services = {
+            '--mercadobitcoin': {
+                'url': 'https://www.mercadobitcoin.com.br/api/ticker/',
+                'parser': ParserMercadoBitcoin()
+            },
+            '--coinbase': {
+                'url': 'https://coinbase.com/api/v1/prices/buy',
+                'parser': ParserCoinbase()
+            },
+            '--exchange': {
+                'url': 'http://www.cambioreal.com',
+                'parser': ParserExchange()
+            }
+        }
 
-        # Create a checker instance and retrieve data
-        checker = Checker(url='https://www.mercadobitcoin.com.br/api/ticker/',
-                          parser=ParserMercadoBitcoin())
-        return checker.check()
+        # Figure out services that were not overriden
+        keys = [k for k in services.keys() if not self.args.get(k)]
 
-    @measure
-    def check_coinbase(self):
-        """
-        Fetch and parse exchange rate from Coinbase.
-        """
-        # Return early if price is provided via args
-        if self.args.get('--coinbase'):
-            return float(self.args.get('--coinbase'))
+        # Perform applicable requests in parallel
+        r = get([(k, services.get(k)) for k in keys])
 
-        # Create a checker instance and retrieve data
-        checker = Checker(url='https://coinbase.com/api/v1/prices/buy',
-                          parser=ParserCoinbase())
-        return checker.check()
+        # Add overriden values to dict
+        overriden = set(services.keys()) - set(keys)
+        r.update({k: float(self.args.get(k)) for k in overriden})
 
-    @measure
-    def check_exchange(self):
-        """
-        Fetch and parse exchange rate from CambioReal.
-
-        Any other reliable source that provides USD/BRL rates could be used here.
-        """
-        # Return early if price is provided via args
-        if self.args.get('--exchange'):
-            return float(self.args.get('--exchange'))
-
-        # Create a checker instance and retrieve data
-        checker = Checker(url='http://www.cambioreal.com',
-                          parser=ParserExchange())
-        return checker.check()
+        # Calculate arbitrage based on values obtained
+        return self.calculate(r['--coinbase'],
+                              r['--mercadobitcoin'],
+                              r['--exchange'])
 
     def calculate(self, coinbase, mercado_bitcoin, exchange):
         """

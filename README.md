@@ -44,9 +44,7 @@ Sample output
 -------
 ```
 $ bitcheck --verbose
-Retrieving exchange // check_mercado_bitcoin ..  took 1.81531 seconds
-Retrieving exchange // check_coinbase ..  took 1.266546 seconds
-Retrieving exchange // check_exchange ..  took 2.522646 seconds
+Retrieving exchange rates ..  took 1.355609 seconds
 
     Bitcheck
     ==================
@@ -76,13 +74,15 @@ Retrieving exchange // check_exchange ..  took 2.522646 seconds
 
 Dependencies
 -------
-This script uses the awesome lib `docopt` to handle argument parsing and `requests`
-for HTTP requests. Optionally use `virtualenvwrapper` to handle dependencies.
+This script uses the awesome lib `docopt` to handle argument parsing, `requests`
+for HTTP requests, as well as `gevent` for asynchronous requests.
+Optionally use `virtualenvwrapper` to handle dependencies.
 
 Roadmap
 -------
-* Add support for parallel HTTP requests.
 * Add support for multiple currencies and exchanges.
+* Handle request errors.
+* `implemented` Add support for parallel HTTP requests.
 * `implemented` Add setuptools support.
 
 
