@@ -78,13 +78,12 @@ This script uses the awesome lib `docopt` to handle argument parsing, `requests`
 for HTTP requests, as well as `gevent` for asynchronous requests.
 Optionally use `virtualenvwrapper` to handle dependencies.
 
-Roadmap
+TODO
 -------
-* Add support for multiple currencies and exchanges.
-* Handle request errors.
-* `implemented` Add support for parallel HTTP requests.
-* `implemented` Add setuptools support.
-
+- [ ] Add support for multiple currencies and exchanges
+- [ ] Handle request errors
+- [x] Add support for parallel HTTP requests
+- [x] Add setuptools support
 
 (Un)license
 -------
